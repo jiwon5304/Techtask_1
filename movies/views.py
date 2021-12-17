@@ -5,8 +5,8 @@ from django.views       import View
 from django.db.models   import Q
 
 from core.decorator     import login_decorator
-from users.models       import User
 from movies.models      import Movie, Recommend, Review
+
 
 # 1. 영화 리스트조회 API
 class MovieListView(View):
@@ -67,7 +67,7 @@ class MovieDetailView(View):
     @login_decorator
     def get(self, request, movie_id):
         try:
-            reviews = Review.objects.filter(movie_id=movie_id)
+            reviews     = Review.objects.filter(movie_id=movie_id)
             review_list = [review.text for review in reviews]
 
             movie = Movie.objects.get(id=movie_id)

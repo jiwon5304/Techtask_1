@@ -1,5 +1,5 @@
 from django.urls  import path
-from movies.views import MovieListView, MovieDetailView, MovieCreateView, ReviewDetailView, ReviewCreateView, ReviewUpdateView, ReviewDeleteView
+from movies.views import MovieListView, MovieDetailView, MovieCreateView, ReviewDetailView, ReviewCreateView, ReviewUpdateView, ReviewDeleteView, RecommendCreateView, RecommendDeleteView
 
 urlpatterns = [
     path('', MovieListView.as_view()),
@@ -9,4 +9,6 @@ urlpatterns = [
     path('/<int:movie_id>/reviewcreate', ReviewCreateView.as_view()),
     path('/reviewupdate/<int:review_id>', ReviewUpdateView.as_view()),
     path('/reviewdelete/<int:review_id>', ReviewDeleteView.as_view()),
+    path('/recommendation/create/<int:review_id>', RecommendCreateView.as_view()),
+    path('/recommendation/delete/<int:review_id>', RecommendDeleteView.as_view()),
 ]

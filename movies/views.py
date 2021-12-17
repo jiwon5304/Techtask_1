@@ -200,3 +200,38 @@ class ReviewDeleteView(View):
 
         except Review.DoesNotExist:
             return JsonResponse({"MESSAGE": "DOES_NOT_EXIST_REVIEW"}, status=404)
+
+# 8. 리뷰추천 생성 API
+class RecommendCreateView(View):
+    @login_decorator
+    def post(self, request, review_id):
+        try:
+            review = Review.objects.get(id=review_id)
+            
+            # 같은 댓글은 한번만 추천 가능
+            if Recommend.objects.filter(user=request.user, review=review).exists():
+                return JsonResponse({"MESSAGE": "already recommended"}, status=400)
+
+            Recommend.objects.create(
+                user   = request.user,
+                review = review
+                )
+            return JsonResponse({"MESSAGE": "SUCCESS"}, status=201)
+
+        except KeyError:
+            return JsonResponse({"MESSAGE": "KEY_ERROR"}, status=400)
+
+# 9. 리뷰추천 삭제 API
+class RecommendDeleteView(View):
+    @login_decorator
+    def post(self, request, review_id):
+        try:
+            if not Recommend.objects.filter(user_id=request.user.id, review_id=review_id).exists():
+                return JsonResponse({"MESSAGE": "already un-recommended"}, status=400)
+
+            Recommend.objects.filter(user_id=request.user.id, review_id=review_id).delete()
+
+            return JsonResponse({"MESSAGE": "SUCCESS"}, status=201)
+
+        except KeyError:
+            return JsonResponse({"MESSAGE": "KEY_ERROR"}, status=400)

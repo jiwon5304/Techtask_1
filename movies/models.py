@@ -6,7 +6,6 @@ from users.models   import User
 
 
 class Movie(models.Model):
-    movies_id    = models.IntegerField()
     title        = models.CharField(max_length=128)
     year         = models.IntegerField()
     rating       = models.DecimalField(max_digits=3, decimal_places=1)

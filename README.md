@@ -84,8 +84,8 @@
     
 2. 가상 환경을 생성하고 프로젝트에 사용한 python package를 받는다.
     ```bash
-    conda create -n tesk python=3.8 
-    conda actvate tesk
+    conda create -n task python=3.8 
+    conda actvate task
     pip install -r requirements.txt
     ```
 
